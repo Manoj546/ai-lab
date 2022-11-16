@@ -1,6 +1,12 @@
 def sum(a, b, c ):
     return a + b + c
 
+def sum2(a,b):
+    s=0
+    for i in range(9):
+        s=s+a[i]+b[i]
+    return s
+
 def printBoard(xState, zState):
     zero = 'X' if xState[0] else ('O' if zState[0] else 0)
     one = 'X' if xState[1] else ('O' if zState[1] else 1)
@@ -11,11 +17,11 @@ def printBoard(xState, zState):
     six = 'X' if xState[6] else ('O' if zState[6] else 6)
     seven = 'X' if xState[7] else ('O' if zState[7] else 7)
     eight = 'X' if xState[8] else ('O' if zState[8] else 8)
-    print(f"{zero} | {one} | {two} ")
-    print(f"--|---|---")
-    print(f"{three} | {four} | {five} ")
-    print(f"--|---|---")
-    print(f"{six} | {seven} | {eight} ") 
+    print(f" {zero} | {one} | {two} ")
+    print(f"---|---|---")
+    print(f" {three} | {four} | {five} ")
+    print(f"---|---|---")
+    print(f" {six} | {seven} | {eight} ") 
 
 def checkWin(xState, zState):
     wins = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]]
@@ -26,7 +32,10 @@ def checkWin(xState, zState):
         if(sum(zState[win[0]], zState[win[1]], zState[win[2]]) == 3):
             print("O Won the match")
             return 0
-    return -1
+        if(sum2(xState, zState) == 9):
+            print("Match is tie")
+            return -1
+    return
     
 if __name__ == "__main__":
     xState = [0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -44,10 +53,9 @@ if __name__ == "__main__":
             value = int(input("Please enter a value: "))
             zState[value] = 1
         cwin = checkWin(xState, zState)
-        if(cwin != -1):
+        if(cwin == -1 or cwin == 1 or cwin == 0 ):
             print("Match over")
             break
         
         turn = 1 - turn
     printBoard(xState, zState)
-	
